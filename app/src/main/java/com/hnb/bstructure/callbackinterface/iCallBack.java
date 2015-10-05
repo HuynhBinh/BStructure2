@@ -1,5 +1,7 @@
 package com.hnb.bstructure.callbackinterface;
 
+import android.content.Context;
+
 import com.hnb.bstructure.thread.BackgroundThreadExecutor;
 
 import java.util.List;
@@ -17,6 +19,9 @@ public class iCallBack
     // background thread to handle data in a separate thread from UI
     // will not lock the UI thread for improve performance
     public BackgroundThreadExecutor backgroundThreadExecutor;
+    //region VARIABLE
+    public Context context;
+    //endregion
 
 
     public interface ProductListCallback

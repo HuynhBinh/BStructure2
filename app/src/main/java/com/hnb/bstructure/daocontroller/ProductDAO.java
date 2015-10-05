@@ -16,9 +16,6 @@ import greendao.GProductDao;
  */
 public class ProductDAO extends iCallBack
 {
-    //region VARIABLE
-    Context context;
-    //endregion
 
 
     //region INIT
@@ -37,7 +34,7 @@ public class ProductDAO extends iCallBack
 
 
     //region GET PRODUCT LIST
-    public void execute_GetProductList(final ProductListCallback callback)
+    public void getProductList(final ProductListCallback callback)
     {
         backgroundThreadExecutor.runOnBackground(new Runnable()
         {
@@ -61,7 +58,7 @@ public class ProductDAO extends iCallBack
 
 
     //region GET PRODUCT DETAIL
-    public void execute_GetProduct(final long productID, final ProductDetailCallback callback)
+    public void getProduct(final long productID, final ProductDetailCallback callback)
     {
         backgroundThreadExecutor.runOnBackground(new Runnable()
         {

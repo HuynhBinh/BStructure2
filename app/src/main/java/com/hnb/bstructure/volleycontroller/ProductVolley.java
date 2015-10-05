@@ -25,11 +25,6 @@ import greendao.GProduct;
 public class ProductVolley extends iCallBack
 {
 
-    //region VARIABLE
-    Context context;
-    //endregion
-
-
     public ProductVolley(Context context)
     {
         // init background thread and ui thread

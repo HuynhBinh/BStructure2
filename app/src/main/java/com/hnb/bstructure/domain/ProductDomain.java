@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.hnb.bstructure.callbackinterface.iCallBack;
 import com.hnb.bstructure.daocontroller.ProductDAO;
 import com.hnb.bstructure.volleycontroller.ProductVolley;
 
@@ -22,7 +23,6 @@ import greendao.GProduct;
 public class ProductDomain
 {
 
-
     public interface dProductListCallback
     {
         void onLoaded(List<GProduct> gProductList);
@@ -35,11 +35,14 @@ public class ProductDomain
         if (WHERE.equals(DomainFactory.DATABASE))
         {
             ProductDAO productDAO = new ProductDAO(context);
-            productDAO.execute_GetProductList(new ProductDAO.dbProductListCallback()
+            productDAO.getProductList(new iCallBack.ProductListCallback()
             {
                 @Override
                 public void onLoaded(List<GProduct> gProductList)
                 {
+                    //handle data here before callback to UI
+
+                    //handle data here before callback to UI
                     callback.onLoaded(gProductList);
                 }
 
@@ -54,12 +57,13 @@ public class ProductDomain
         else
         {
             ProductVolley productVolley = new ProductVolley(context);
-            productVolley.execute_GetProductList(new ProductVolley.vlProductListCallback()
+            productVolley.execute_GetProductList(new iCallBack.ProductListCallback()
             {
                 @Override
-                public void onLoaded(String result)
+                public void onLoaded(List<GProduct> gProductList)
                 {
 
+                    //handle data here before callback to UI
                     List<GProduct> list = new ArrayList<GProduct>();
                     GProduct gProduct = new GProduct();
                     gProduct.setId(1l);
@@ -76,7 +80,9 @@ public class ProductDomain
                     list.add(gProduct);
 
 
-                    Type collectionType = new TypeToken<Collection<GProduct>>(){}.getType();
+                    Type collectionType = new TypeToken<Collection<GProduct>>()
+                    {
+                    }.getType();
                     GsonBuilder gsonBuilder = new GsonBuilder();
                     //gsonBuilder.setDateFormat("M/d/yy hh:mm a");
 
@@ -95,7 +101,7 @@ public class ProductDomain
                     //Collection<GProduct> ints2 = gson.fromJson(result, collectionType);
 
 
-
+                    //handle data here before callback to UI
                     callback.onLoaded(listProducts);
 
                 }
