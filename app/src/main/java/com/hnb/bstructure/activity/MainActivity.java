@@ -46,45 +46,6 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-               /* ProductDAO productDAO = new ProductDAO(MainActivity.this);
-                productDAO.executeGetProduct(1, new ProductDAO.ProductDetailCallback()
-                {
-                    @Override
-                    public void onLoaded(GProduct gProduct)
-                    {
-                        Toast.makeText(MainActivity.this, gProduct.toString(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(String error)
-                    {
-                        Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
-                    }
-                });*/
-
-                /*ProductVolley productVolley = new ProductVolley(MainActivity.this);
-                productVolley.execute_GetProductList(new ProductVolley.vlProductListCallback()
-                {
-                    @Override
-                    public void onLoaded(final String result)
-                    {
-                        runOnUiThread(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onError(String error)
-                    {
-                        Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
-                    }
-                });*/
 
                 ProductDomain productDomain = new ProductDomain();
                 productDomain.getProductList(MainActivity.this, DomainFactory.VOLLEY, new ProductDomain.dProductListCallback()
@@ -157,27 +118,7 @@ public class MainActivity extends ActionBarActivity
                     }
                 });
 
-                /*GetProductListUseCase getProductListUseCase = new GetProductListUseCase();
-                getProductListUseCase.execute(new GetProductListUseCase.Callback()
-                {
-                    @Override
-                    public void onProductListLoaded(Collection<Product> productList)
-                    {
 
-                        StringBuilder stringBuider = new StringBuilder();
-                        for (Product pro : productList)
-                        {
-                            stringBuider.append(pro.toString());
-                        }
-                        txtData.setText(stringBuider.toString());
-                    }
-
-                    @Override
-                    public void onError(Exception exception)
-                    {
-                        txtData.setText(exception.getMessage());
-                    }
-                });*/
             }
         });
     }

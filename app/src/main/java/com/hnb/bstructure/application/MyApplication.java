@@ -27,27 +27,8 @@ public class MyApplication extends Application
         mInstance = this;
 
         setupDatabase();
-        GProduct gProduct = new GProduct();
-        gProduct.setId(1l);
-        gProduct.setName("asd");
-        gProduct.setDescription("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        gProduct.setPrice(23.23);
-        ProductDAO.insertProduct(this, gProduct);
+        createFakeData();
 
-        gProduct = new GProduct();
-        gProduct.setId(2l);
-        gProduct.setName("qwe");
-        gProduct.setDescription("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-        gProduct.setPrice(23.23);
-        ProductDAO.insertProduct(this, gProduct);
-
-
-        gProduct = new GProduct();
-        gProduct.setId(3l);
-        gProduct.setName("zxc");
-        gProduct.setDescription("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
-        gProduct.setPrice(23.23);
-        ProductDAO.insertProduct(this, gProduct);
 
     }
 
@@ -76,6 +57,32 @@ public class MyApplication extends Application
             setupDatabase();
             return daoSession;
         }
+    }
+
+    private void createFakeData()
+    {
+        GProduct gProduct = new GProduct();
+        gProduct.setId(1l);
+        gProduct.setName("asd");
+        gProduct.setDescription("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        gProduct.setPrice(23.23);
+        ProductDAO.insertProduct(this, gProduct);
+
+        gProduct = new GProduct();
+        gProduct.setId(2l);
+        gProduct.setName("qwe");
+        gProduct.setDescription("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        gProduct.setPrice(23.23);
+        ProductDAO.insertProduct(this, gProduct);
+
+
+        gProduct = new GProduct();
+        gProduct.setId(3l);
+        gProduct.setName("zxc");
+        gProduct.setDescription("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+        gProduct.setPrice(23.23);
+        ProductDAO.insertProduct(this, gProduct);
+
     }
 
 

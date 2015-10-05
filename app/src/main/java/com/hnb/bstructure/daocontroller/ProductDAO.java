@@ -3,6 +3,7 @@ package com.hnb.bstructure.daocontroller;
 import android.content.Context;
 
 import com.hnb.bstructure.application.MyApplication;
+import com.hnb.bstructure.callbackinterface.iCallBack;
 import com.hnb.bstructure.thread.BackgroundThreadExecutor;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import greendao.GProductDao;
 /**
  * Created by HuynhBinh on 9/9/15.
  */
-public class ProductDAO
+public class ProductDAO extends iCallBack
 {
     //region VARIABLE
     // background thread to handle data in a separate thread from UI
@@ -39,26 +40,8 @@ public class ProductDAO
     //endregion
 
 
-    //region INTERFACE CALLBACK
-    public interface dbProductListCallback
-    {
-        void onLoaded(List<GProduct> gProductList);
-
-        void onError(String error);
-
-    }
-
-    public interface dbProductDetailCallback
-    {
-        void onLoaded(GProduct gProduct);
-
-        void onError(String error);
-    }
-    //endregion
-
-
     //region GET PRODUCT LIST
-    public void execute_GetProductList(final dbProductListCallback callback)
+    public void execute_GetProductList(final ProductListCallback callback)
     {
         backgroundThreadExecutor.runOnBackground(new Runnable()
         {
@@ -83,7 +66,7 @@ public class ProductDAO
 
 
     //region GET PRODUCT DETAIL
-    public void execute_GetProduct(final long productID, final dbProductDetailCallback callback)
+    public void execute_GetProduct(final long productID, final ProductDetailCallback callback)
     {
         backgroundThreadExecutor.runOnBackground(new Runnable()
         {
@@ -114,15 +97,4 @@ public class ProductDAO
     }
 
     //endregion
-
-
-    //region Test
-    public static void insertProduct(Context context, GProduct gProduct)
-    {
-        ProductDAO productDAO = new ProductDAO(context);
-        productDAO.getDao(context).insertOrReplace(gProduct);
-    }
-    //endregion
-
-
 }

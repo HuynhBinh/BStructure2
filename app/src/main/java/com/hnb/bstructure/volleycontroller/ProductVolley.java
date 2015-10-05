@@ -7,15 +7,22 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.hnb.bstructure.callbackinterface.iCallBack;
 import com.hnb.bstructure.thread.BackgroundThreadExecutor;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import greendao.GProduct;
 
 /**
  * Created by USER on 9/11/2015.
  */
-public class ProductVolley
+public class ProductVolley extends iCallBack
 {
 
     //region VARIABLE
@@ -35,20 +42,11 @@ public class ProductVolley
 
     }
 
-    //region Interface Callback
-    public interface vlProductListCallback
-    {
-        void onLoaded(String result);
-
-        void onError(String error);
-    }
-    //endregion
-
 
     //region Get product list
     public static final String TAG_executeGetProductList = "TAG_executeGetProductList";
 
-    public void execute_GetProductList(final vlProductListCallback callback)
+    public void execute_GetProductList(final ProductListCallback callback)
     {
         String url = "http://rest.elkstein.org/2008/02/real-rest-examples.html";
 
@@ -62,7 +60,9 @@ public class ProductVolley
                     @Override
                     public void run()
                     {
-                        callback.onLoaded(s);
+                        Gson gson = new Gson();
+                        List<GProduct> list = Arrays.asList(gson.fromJson(s, GProduct[].class));
+                        callback.onLoaded(list);
                     }
                 });
 
