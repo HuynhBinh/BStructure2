@@ -26,10 +26,6 @@ public class ProductVolley extends iCallBack
 {
 
     //region VARIABLE
-    // background thread to handle data in a separate thread from UI
-    // will not lock the UI thread for improve performance
-    BackgroundThreadExecutor backgroundThreadExecutor;
-
     Context context;
     //endregion
 

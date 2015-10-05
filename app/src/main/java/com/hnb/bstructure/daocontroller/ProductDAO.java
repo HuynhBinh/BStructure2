@@ -17,10 +17,6 @@ import greendao.GProductDao;
 public class ProductDAO extends iCallBack
 {
     //region VARIABLE
-    // background thread to handle data in a separate thread from UI
-    // will not lock the UI thread for improve performance
-    BackgroundThreadExecutor backgroundThreadExecutor;
-
     Context context;
     //endregion
 
@@ -33,9 +29,9 @@ public class ProductDAO extends iCallBack
         this.context = context;
     }
 
-    private GProductDao getDao(Context c)
+    private GProductDao getDao()
     {
-        return ((MyApplication) c.getApplicationContext()).getDaoSession().getGProductDao();
+        return ((MyApplication) context.getApplicationContext()).getDaoSession().getGProductDao();
     }
     //endregion
 
@@ -50,8 +46,7 @@ public class ProductDAO extends iCallBack
             {
                 try
                 {
-                    List<GProduct> gProductList;
-                    gProductList = getDao(context).loadAll();
+                    List<GProduct> gProductList = getDao().loadAll();
                     callback.onLoaded(gProductList);
                 }
                 catch (final Exception ex)
@@ -76,7 +71,7 @@ public class ProductDAO extends iCallBack
                 try
                 {
 
-                    GProduct gProduct = getDao(context).load(productID);
+                    GProduct gProduct = getDao().load(productID);
                     if (gProduct != null)
                     {
                         callback.onLoaded(gProduct);

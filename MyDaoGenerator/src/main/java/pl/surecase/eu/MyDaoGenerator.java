@@ -15,11 +15,19 @@ public class MyDaoGenerator
     {
         schema = new Schema(1, "greendao");
 
-        Entity customer = schema.addEntity("GProduct");
+        Entity product = schema.addEntity("GProduct");
+        product.addLongProperty("id").primaryKey();
+        product.addStringProperty("name");
+        product.addStringProperty("description");
+        product.addDoubleProperty("price");
+
+
+
+        Entity customer  = schema.addEntity("Customer");
         customer.addLongProperty("id").primaryKey();
         customer.addStringProperty("name");
-        customer.addStringProperty("description");
-        customer.addDoubleProperty("price");
+        customer.addStringProperty("email");
+        customer.addStringProperty("phone");
 
         new DaoGenerator().generateAll(schema, args[0]);
     }

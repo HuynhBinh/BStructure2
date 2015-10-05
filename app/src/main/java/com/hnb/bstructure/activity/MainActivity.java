@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hnb.bstructure.R;
+import com.hnb.bstructure.callbackinterface.iCallBack;
 import com.hnb.bstructure.daocontroller.ProductDAO;
 import com.hnb.bstructure.domain.DomainFactory;
 import com.hnb.bstructure.domain.ProductDomain;
+import com.hnb.bstructure.thread.UIThreadExecutor;
 import com.hnb.bstructure.volleycontroller.ProductVolley;
 
 import java.util.List;
@@ -27,11 +29,14 @@ public class MainActivity extends ActionBarActivity
     Button btnLoadOne;
     TextView txtData;
 
+    UIThreadExecutor uiThreadExecutor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        uiThreadExecutor = UIThreadExecutor.getInstance();
         initView();
     }
 
@@ -48,12 +53,12 @@ public class MainActivity extends ActionBarActivity
             {
 
                 ProductDomain productDomain = new ProductDomain();
-                productDomain.getProductList(MainActivity.this, DomainFactory.VOLLEY, new ProductDomain.dProductListCallback()
+                productDomain.getProductList(MainActivity.this, DomainFactory.DATABASE, new ProductDomain.dProductListCallback()
                 {
                     @Override
                     public void onLoaded(final List<GProduct> gProductList)
                     {
-                        runOnUiThread(new Runnable()
+                        uiThreadExecutor.runOnUIThread(new Runnable()
                         {
                             @Override
                             public void run()
@@ -66,7 +71,7 @@ public class MainActivity extends ActionBarActivity
                     @Override
                     public void onError(final String error)
                     {
-                        runOnUiThread(new Runnable()
+                        uiThreadExecutor.runOnUIThread(new Runnable()
                         {
                             @Override
                             public void run()
@@ -85,40 +90,6 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
-
-                ProductDAO productDAO = new ProductDAO(MainActivity.this);
-                productDAO.execute_GetProductList(new ProductDAO.dbProductListCallback()
-                {
-                    @Override
-                    public void onLoaded(List<GProduct> gProductList)
-                    {
-                        String result = "";
-                        for (GProduct gProduct : gProductList)
-                        {
-                            result += gProduct.toString();
-                        }
-
-                        final String re = result;
-
-                        runOnUiThread(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                Toast.makeText(MainActivity.this, re, Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onError(String error)
-                    {
-                        Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
-                    }
-                });
-
-
             }
         });
     }

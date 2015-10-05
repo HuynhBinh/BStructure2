@@ -1,7 +1,10 @@
 package com.hnb.bstructure.callbackinterface;
 
+import com.hnb.bstructure.thread.BackgroundThreadExecutor;
+
 import java.util.List;
 
+import greendao.Customer;
 import greendao.GProduct;
 
 /**
@@ -9,6 +12,12 @@ import greendao.GProduct;
  */
 public class iCallBack
 {
+
+    //region VARIABLE
+    // background thread to handle data in a separate thread from UI
+    // will not lock the UI thread for improve performance
+    public BackgroundThreadExecutor backgroundThreadExecutor;
+
 
     public interface ProductListCallback
     {
@@ -24,5 +33,20 @@ public class iCallBack
 
         void onError(String error);
     }
-    
+
+    public interface CustomerListCallback
+    {
+        void onLoaded(List<Customer> customerList);
+
+        void onError(String error);
+    }
+
+
+    public interface CustomerDetailCallback
+    {
+        void onLoaded(Customer customer);
+
+        void onError(String error);
+    }
+
 }
