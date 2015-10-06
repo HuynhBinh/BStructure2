@@ -24,7 +24,6 @@ import greendao.GProduct;
 
 public class MainActivity extends ActionBarActivity
 {
-
     Button btnLoadAll;
     Button btnLoadOne;
     TextView txtData;
@@ -90,6 +89,21 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View view)
             {
+                ProductDomain productDomain = new ProductDomain();
+                productDomain.getProductsThatPriceLessThan50(MainActivity.this, new ProductDomain.dProductListCallback()
+                {
+                    @Override
+                    public void onLoaded(List<GProduct> gProductList)
+                    {
+
+                    }
+
+                    @Override
+                    public void onError(String error)
+                    {
+
+                    }
+                });
             }
         });
     }

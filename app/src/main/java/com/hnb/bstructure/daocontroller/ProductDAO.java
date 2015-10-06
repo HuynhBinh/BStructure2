@@ -89,4 +89,10 @@ public class ProductDAO extends iCallBack
     }
 
     //endregion
+
+
+    public static void insertProduct(Context ctx, GProduct  product)
+    {
+        ((MyApplication) ctx.getApplicationContext()).getDaoSession().getGProductDao().insert(product);
+    }
 }

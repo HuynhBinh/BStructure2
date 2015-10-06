@@ -10,7 +10,7 @@ import java.util.List;
 
 import greendao.Customer;
 import greendao.CustomerDao;
-import greendao.GProductDao;
+
 
 /**
  * Created by HuynhBinh on 10/5/15.

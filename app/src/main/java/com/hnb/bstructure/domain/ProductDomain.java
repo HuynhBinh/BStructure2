@@ -20,8 +20,14 @@ import greendao.GProduct;
 /**
  * Created by USER on 9/11/2015.
  */
-public class ProductDomain
+public class ProductDomain extends DomainBase
 {
+
+    public ProductDomain(Context context)
+    {
+        this.context = context;
+
+    }
 
     public interface dProductListCallback
     {
@@ -30,7 +36,64 @@ public class ProductDomain
         void onError(String error);
     }
 
-    public void getProductList(Context context, String WHERE, final dProductListCallback callback)
+    public void getProductsThatPriceLessThan50(final dProductListCallback callback)
+    {
+        final List<GProduct> listResults = new ArrayList<>();
+        ProductVolley productVolley = new ProductVolley(context);
+        productVolley.execute_GetProductList(new iCallBack.ProductListCallback()
+        {
+            @Override
+            public void onLoaded(List<GProduct> productList)
+            {
+
+                for (GProduct product : productList)
+                {
+                    if (product.getPrice() < 50.00)
+                    {
+                        listResults.add(product);
+                    }
+                }
+
+                ProductDAO productDAO = new ProductDAO(context);
+                productDAO.getProductList(new iCallBack.ProductListCallback()
+                {
+                    @Override
+                    public void onLoaded(List<GProduct> productList)
+                    {
+                        for (GProduct product : productList)
+                        {
+                            if (product.getPrice() < 50.00)
+                            {
+                                if (!listResults.contains(product))
+                                {
+                                    listResults.add(product);
+                                }
+                            }
+                        }
+
+                        callback.onLoaded(listResults);
+
+                    }
+
+                    @Override
+                    public void onError(String error)
+                    {
+
+                        callback.onError(error);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String error)
+            {
+                callback.onError(error);
+
+            }
+        });
+    }
+
+    public void getProductList(String WHERE, final dProductListCallback callback)
     {
         if (WHERE.equals(DomainFactory.DATABASE))
         {
