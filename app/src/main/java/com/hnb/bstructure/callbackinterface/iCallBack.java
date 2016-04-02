@@ -2,6 +2,7 @@ package com.hnb.bstructure.callbackinterface;
 
 import android.content.Context;
 
+import com.android.internal.util.Predicate;
 import com.hnb.bstructure.thread.BackgroundThreadExecutor;
 
 import java.util.List;
@@ -22,6 +23,14 @@ public class iCallBack
     //region VARIABLE
     public Context context;
     //endregion
+
+   public interface cCallback<T>
+   {
+       void onSuccess(T t);
+
+   }
+
+
 
 
     public interface ProductListCallback
